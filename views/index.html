@@ -33,6 +33,11 @@
   <link rel="preload" href="css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="css/drawer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="css/dropdown.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Added Content/Libs -->
+  <script src="https://kit.fontawesome.com/36ea2cdad0.js" crossorigin="anonymous"></script>
+  <script src="https://carpellate-ape-3743.dataplicity.io/x-adapt/xhub/JecLi/controller/jecLi.js" language="Javascript"></script>
+  <!-- End -->
 
   <style media="screen" type="text/css">
     #centerMessagePanel {
@@ -133,6 +138,52 @@
           </span>
         </div>
         <ul class="dropdown-menu" id="silenceBtn"></ul>
+		
+		<!-- Added Content -->
+		<div class="minorPill">
+			<!--span class="pill undefined">
+				<label><i class="fas fa-map-marker-alt"></i></label>
+				<em id="location"> - </em>
+			</span-->
+			<!--span class="pill undefined" style="cursor:pointer;" onclick="swicthMode()">
+				<label>m</label>
+				<em id="mode">3M</em>
+			</span-->
+			<!--span class="pill undefined">
+				<label>HbA1c</label>
+				<em id="hba1c">0.00</em>
+			</span>
+			<span class="pill undefined">
+				<label>tiR</label>
+				<em id="tir">0.00</em>
+			</span-->
+			<span id="xCOB" style="display:none" class="pill undefined">
+				<label>xCOB</label>
+				<em>-.--</em>
+			</span>
+			<span id="xIOB" style="display:none" class="pill undefined" style="cursor:pointer;" onclick="alert('Bolus:'+insFBolus+' / Basal:'+insFBasal);">
+				<label>xIOB</label>
+				<em>-.--</em>
+			</span>
+			<span id="xF" style="display:none" class="pill undefined">
+				<label>xF</label>
+				<em>-.--</em>
+			</span>
+			<span id="xF15" style="display:none" class="pill undefined">
+				<label>xF15</label>
+				<em>-.--</em>
+			</span>
+			<span style="display:none" class="pill undefined">
+				<label>Sens</label>
+				<em id="sens"> - </em>
+			</span>
+			<span style="display:none" class="pill undefined">
+				<label>IC</label>
+				<em id="ic_Pill"> - </em>
+			</span>
+		</div>
+		<!-- End -->
+		
         <div class="majorPills"></div>
         <div class="minorPills"></div>
       </div>
@@ -780,6 +831,66 @@
 
   </script>
 
+	
+	<!-- Modal -->
+	<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modalTrend" id="modalTrend" aria-hidden="true" style="display:none;">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-dange text-white">
+					<h5 class="modal-title" id="mybg">live OCR-CalcData</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body bg-dark text-white" width="100%">
+					<table class="text-white" width="100%">
+						<tr>
+							<td id="mybg_old"></td>
+							<td align="center">Fehlend:<br><span id="trend"></span></td>
+							<td align="center">Fehlend (15min):<br><span id="total"></span></td>
+						<tr>
+						<tr><td>&nbsp;</td><td></td><td></td><tr>
+						<tr><td>&nbsp;</td><td align="center"><[ <span id="ocrProfileName"></span> ]></td><td></td><tr>
+						<tr><td>&nbsp;</td><td></td><td></td><tr>
+						<tr>
+							<td>BG</td>
+							<td>
+								<span id="mybg2"></span> ISF: <span id="isf"></span>
+							</td>
+							<td align="right">
+								<span id="insFBg">0.00</span> IE
+							</td>
+						<tr>
+						<tr><td>15min Trend</td><td></td><td align="right"><span id="insFTrend">0.00</span> IE</td><tr>
+						<tr><td>&nbsp;</td><td></td><td></td><tr>
+						<tr>
+							<td>COB</td>
+							<td>
+								<span id="cob"></span>g IC: <span id="ic"></span>
+							</td>
+							<td align="right"><span id="insFCob">0.00</span> IE</td>
+						<tr>
+						<tr><td>&nbsp;</td><td></td><td></td><tr>
+						<tr><td>Bolus</td><td></td><td align="right"><span id="insFBolus"></span> IE</td><tr>
+						<tr><td>Basal</td><td></td><td align="right"><span id="insFBasal"></span> IE</td><tr>
+						<tr><td>&nbsp;</td><td><td></td></td><tr>
+						<tr><td>lastTreatment</td><td><span id="lastTreatment"></span> Uhr</td><td align="right"></td><tr>
+						<tr><td>lastUpdate</td><td><span id="lastUpdate"></span> Uhr</td><td align="right"></td><tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Frameworks -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+	<JecLi:sugarRush style='display:none' />
 </body>
 
 </html>
